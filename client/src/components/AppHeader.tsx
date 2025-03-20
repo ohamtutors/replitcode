@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { RefreshCw, Home } from 'lucide-react';
+import { RefreshCw, Home, HelpCircle } from 'lucide-react';
+import { Link } from 'wouter';
 
 interface AppHeaderProps {
   onRefresh: () => void;
@@ -14,6 +15,16 @@ export default function AppHeader({ onRefresh }: AppHeaderProps) {
           <h1 className="text-lg font-medium">Google Apps Viewer</h1>
         </div>
         <div className="flex items-center space-x-2">
+          <Link href="/instructions">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="hover:bg-primary/90 focus:ring-2 focus:ring-white"
+              aria-label="Script Integration Instructions"
+            >
+              <HelpCircle className="h-5 w-5" />
+            </Button>
+          </Link>
           <Button 
             variant="ghost" 
             size="icon" 
