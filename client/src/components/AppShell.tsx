@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import AppHeader from '@/components/AppHeader';
 import ContentFrame from '@/components/ContentFrame';
 import OfflineIndicator from '@/components/OfflineIndicator';
 import useNetworkStatus from '@/hooks/useNetworkStatus';
@@ -83,32 +82,28 @@ export default function AppShell() {
 
   return (
     <div className="flex flex-col h-screen bg-background text-foreground" style={{ overscrollBehavior: 'none' }}>
-      <AppHeader onRefresh={handleRefresh} />
-      
+      {/* Only show critical offline indicator when needed */}
       {isOffline && <OfflineIndicator />}
       
       {/* Only show ContentFrame on the home route */}
       {location === '/' && (
-        <div className="flex-1 flex flex-col relative">
-          {/* Main content area with iframe */}
-          <div className="flex-1 relative">
-            <ContentFrame 
-              src={scriptUrl} 
-              refreshTrigger={refreshTrigger}
-            />
-          </div>
+        <div className="flex-1 relative">
+          {/* Main content area with iframe - full screen */}
+          <ContentFrame 
+            src={scriptUrl} 
+            refreshTrigger={refreshTrigger}
+          />
           
-          {/* Footer bar with settings button */}
-          <div className="bg-background/80 backdrop-blur-sm border-t py-2 px-4 flex justify-end">
+          {/* Minimal floating controls - only settings button */}
+          <div className="absolute bottom-4 right-4 flex space-x-2 z-10">
             <Button
               variant="outline"
-              size="sm"
+              size="icon"
               onClick={openSettings}
-              className="flex items-center gap-2"
+              className="rounded-full shadow-lg bg-background/80 backdrop-blur-sm"
               aria-label="Configure Google Apps Script URL"
             >
-              <Settings className="h-4 w-4" />
-              <span>Settings</span>
+              <Settings className="h-5 w-5" />
             </Button>
           </div>
         </div>
