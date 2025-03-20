@@ -130,7 +130,7 @@ export default function ContentFrame({ src, refreshTrigger }: ContentFrameProps)
   };
   
   return (
-    <div className="flex-1 relative w-full overflow-hidden">
+    <div className="flex-1 relative w-full h-full overflow-hidden">
       {isLoading && <LoadingIndicator />}
       
       {hasError ? (
@@ -141,7 +141,7 @@ export default function ContentFrame({ src, refreshTrigger }: ContentFrameProps)
           title="Web Application Content"
           src={src}
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
-          className={`w-full h-full border-none ${isLoading ? 'hidden' : 'block'}`}
+          className={`w-full h-full border-none absolute inset-0 ${isLoading ? 'hidden' : 'block'}`}
           onLoad={handleIframeLoad}
           onError={handleIframeError}
         />

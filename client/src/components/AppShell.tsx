@@ -89,22 +89,28 @@ export default function AppShell() {
       
       {/* Only show ContentFrame on the home route */}
       {location === '/' && (
-        <div className="flex-1 relative">
-          <ContentFrame 
-            src={scriptUrl} 
-            refreshTrigger={refreshTrigger}
-          />
+        <div className="flex-1 flex flex-col relative">
+          {/* Main content area with iframe */}
+          <div className="flex-1 relative">
+            <ContentFrame 
+              src={scriptUrl} 
+              refreshTrigger={refreshTrigger}
+            />
+          </div>
           
-          {/* Settings button (floating) */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute bottom-4 right-4 rounded-full shadow-md bg-background/80 backdrop-blur-sm"
-            onClick={openSettings}
-            aria-label="Configure Google Apps Script URL"
-          >
-            <Settings className="h-5 w-5" />
-          </Button>
+          {/* Footer bar with settings button */}
+          <div className="bg-background/80 backdrop-blur-sm border-t py-2 px-4 flex justify-end">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={openSettings}
+              className="flex items-center gap-2"
+              aria-label="Configure Google Apps Script URL"
+            >
+              <Settings className="h-4 w-4" />
+              <span>Settings</span>
+            </Button>
+          </div>
         </div>
       )}
       
