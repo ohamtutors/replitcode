@@ -42,12 +42,29 @@ export default function ContentFrame({ src, refreshTrigger }: ContentFrameProps)
       }
     }, 15000);
     
+    // Listen for messages from the iframe (for cross-origin communication)
+    const handleIframeMessage = (event: MessageEvent) => {
+      // We'll accept messages from the Google Apps Script domain
+      // This is less restrictive but necessary for cross-origin communication
+      
+      // Handle scroll position message from iframe content (if implemented)
+      if (event.data && event.data.type === 'SAVE_SCROLL') {
+        const position = event.data.position;
+        if (typeof position === 'number') {
+          localStorage.setItem('iframeScrollPosition', position.toString());
+        }
+      }
+    };
+    
+    window.addEventListener('message', handleIframeMessage);
+    
     return () => {
       if (loadTimeoutRef.current) {
         window.clearTimeout(loadTimeoutRef.current);
       }
+      window.removeEventListener('message', handleIframeMessage);
     };
-  }, [refreshTrigger, toast]);
+  }, [refreshTrigger, toast, src]);
   
   // Handle iframe load events
   const handleIframeLoad = () => {
@@ -123,7 +140,7 @@ export default function ContentFrame({ src, refreshTrigger }: ContentFrameProps)
           ref={iframeRef}
           title="Web Application Content"
           src={src}
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-downloads"
           className={`w-full h-full border-none ${isLoading ? 'hidden' : 'block'}`}
           onLoad={handleIframeLoad}
           onError={handleIframeError}

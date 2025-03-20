@@ -20,7 +20,7 @@ export default function AppShell() {
       {isOffline && <OfflineIndicator />}
       
       <ContentFrame 
-        src={import.meta.env.VITE_GOOGLE_APPS_SCRIPT_URL || "https://script.google.com/macros/s/your-script-id/exec"} 
+        src="https://script.google.com/macros/s/AKfycbyYlc4WWmOQU3sgi6idhUGALzRwe1smtndnlL8MDehVaxSi1xJyci1Z9kT2rV5ZrjBI/exec" 
         refreshTrigger={refreshTrigger}
       />
     </div>
